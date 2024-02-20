@@ -1,0 +1,12 @@
+name: Build and Deploy
+run-name: ${{ github.actor }} is building and deploying project 🚀
+on: [push]
+jobs:
+  Build-Actions:
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Build
+        run: |
+          mvn clean install
