@@ -1,6 +1,6 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing GitHub Actions 🚀
-on: [push]
+on: [pull_request]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
