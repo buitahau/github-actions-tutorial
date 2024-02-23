@@ -1,0 +1,20 @@
+name: Build and Deploy main branch
+run-name: Build and Deploy main branch after merged pull request 🚀
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  Release:
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.0.0
+        with:
+          java-version: '17'
+          distribution: 'oracle'
+      - name: Build with maven
+        run: |
+          mvn clean install

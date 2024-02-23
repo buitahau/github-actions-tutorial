@@ -4,14 +4,23 @@ on: [pull_request]
 jobs:
   Build-Actions:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    environment:
+      name: Test
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+      - name: Print secret value
+        env:
+          TEST_SECRET: ${{ secrets.TEST_SECRET }}
+        run: echo "TEST_SECRET[${{ secrets.TEST_SECRET }}]"
+      - name: Print variable value
+        run: echo "TEST_VARIABLE[${{ vars.TEST_VARIABLE }}]"
       - name: Setup Java JDK
         uses: actions/setup-java@v4.0.0
         with:
           java-version: '17'
           distribution: 'oracle'
+          cache: 'maven'
       - name: Check format
         run: |
           mvn prettier:check
