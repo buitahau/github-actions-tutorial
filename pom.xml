@@ -18,6 +18,14 @@
 		<prettier-maven-plugin.version>0.22</prettier-maven-plugin.version>
 		<plugin.prettier.goal>write</plugin.prettier.goal>
 	</properties>
+
+	<scm>
+		<connection>scm:git:git@github.com:buitahau/github-actions-tutorial.git</connection>
+		<developerConnection>scm:git:git@github.com:buitahau/github-actions-tutorial.git</developerConnection>
+		<url>https://github.com/buitahau/github-actions-tutorial</url>
+		<tag>@{project.version}</tag>
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -69,6 +77,18 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<goals>pre-integration-test</goals>
+					<preparationGoals>package</preparationGoals>
+					<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+					<tagNameFormat>${project.version}</tagNameFormat>
+					<remoteTagging>false</remoteTagging>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
